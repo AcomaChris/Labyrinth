@@ -15,7 +15,6 @@ AMapGenerator::AMapGenerator()
 void AMapGenerator::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -65,7 +64,7 @@ void AMapGenerator::RecursiveBacktrack(int row, int column) {
 		int neighbourColumn = column;
 		// Figure out based on the direction what neighbour tile we should look at, and early exit if the neighbour would be outside maze bounds
 		switch (currentOption) {
-		case N: 
+		case N:
 			neighbourRow--;
 			if (neighbourRow < 0)
 				continue;

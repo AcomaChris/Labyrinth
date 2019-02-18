@@ -23,7 +23,7 @@ struct FTile
 
 	// 4 bools defining each direction of the tile and where there is a wall or not
 	// False = wall, True = pathway
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
 		bool N;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
 		bool S;
@@ -58,9 +58,9 @@ USTRUCT(BlueprintType)
 struct FTile2DArray {
 	GENERATED_BODY()
 
-		// Our array of Tiles - basically the columns, and each Tile2DArray is a row
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
-		TArray<FTile> Array;
+	// Our array of Tiles - basically the columns, and each Tile2DArray is a row
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
+	TArray<FTile> Array;
 
 	// Override for the [] operator, which lets us use this struct like it really was just a 2D array
 	// (Note that you can find this code online but they miss making it return a reference - we need a reference to we can modify the contents)
@@ -77,8 +77,8 @@ UCLASS()
 class LABYRINTH_API AMapGenerator : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AMapGenerator();
 
@@ -94,7 +94,7 @@ protected:
 
 	void RecursiveBacktrack(int row, int column);
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
