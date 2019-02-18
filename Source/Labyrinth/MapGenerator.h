@@ -6,6 +6,15 @@
 #include "GameFramework/Actor.h"
 #include "MapGenerator.generated.h"
 
+// Readability enum for directions
+// (and doing it this way we could expand to hex etc if we wanted)
+enum Direction {
+	N = 0,
+	S = 1,
+	E = 2,
+	W = 3
+};
+
 // Blueprint-exposed Struct defining a basic map tile - 4 cardinal direction walls that are blocked or passable
 USTRUCT(BlueprintType)
 struct FTile
@@ -23,6 +32,9 @@ struct FTile
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
 		bool W;
 
+	// Bool used internally to keep track of when tiles have been visited by the maze generator algorithm
+	bool visited;
+
 	// Constructor with wall info
 	FTile(bool pN, bool pS, bool pE, bool pW)
 	{
@@ -30,11 +42,13 @@ struct FTile
 		S = pS;
 		E = pE;
 		W = pW;
+		visited = false;
 	}
 	// Default constructor, all sides have walls
 	FTile()
 	{
 		N = S = E = W = false;
+		visited = false;
 	}
 };
 
@@ -49,7 +63,8 @@ struct FTile2DArray {
 		TArray<FTile> Array;
 
 	// Override for the [] operator, which lets us use this struct like it really was just a 2D array
-	FTile operator[] (int32 i) {
+	// (Note that you can find this code online but they miss making it return a reference - we need a reference to we can modify the contents)
+	FTile& operator[] (int32 i) {
 		return Array[i];
 	}
 
@@ -76,6 +91,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void RecursiveBacktrack(int row, int column);
 
 public:	
 	// Called every frame
