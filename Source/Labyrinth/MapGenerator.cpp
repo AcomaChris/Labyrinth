@@ -29,14 +29,8 @@ void AMapGenerator::GenerateMap(int height, int width)
 	// Create our initial grid
 	for (int row = 0; row < height; row++) {
 		Map.Add(FTile2DArray());
-		if (GEngine) {
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Adding Tile2DArray Row"));
-		}
 		for (int column = 0; column < width; column++) {
 			Map[row].Add(FTile());
-			if (GEngine) {
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Adding Tile"));
-			}
 		}
 	}
 	// Now that we have an initial grid, pick a random starting square and make the maze
