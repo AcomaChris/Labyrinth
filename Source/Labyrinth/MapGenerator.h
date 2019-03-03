@@ -34,6 +34,9 @@ struct FTile
 
 	// Bool used internally to keep track of when tiles have been visited by the maze generator algorithm
 	bool visited;
+	// Is this the escape tile? (simple game loop implementation for now)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MapGeneration")
+	bool escape;
 
 	// Constructor with wall info
 	FTile(bool pN, bool pS, bool pE, bool pW)
@@ -43,12 +46,14 @@ struct FTile
 		E = pE;
 		W = pW;
 		visited = false;
+		escape = false;
 	}
 	// Default constructor, all sides have walls
 	FTile()
 	{
 		N = S = E = W = false;
 		visited = false;
+		escape = false;
 	}
 };
 
@@ -98,4 +103,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool setEscape;
 };

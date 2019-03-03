@@ -8,7 +8,7 @@ AMapGenerator::AMapGenerator()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	setEscape = false;
 }
 
 // Called when the game starts or when spawned
@@ -115,6 +115,10 @@ void AMapGenerator::RecursiveBacktrack(int row, int column) {
 		}
 		// We've carved a path to this neighbour, so now recurse into this neighbour tile
 		RecursiveBacktrack(neighbourRow, neighbourColumn);
+	}
+	if (!setEscape) {
+		thisTile.escape = true;
+		setEscape = true;
 	}
 }
 
